@@ -1,0 +1,59 @@
+---
+type: service_template
+subtype: workflow
+name: example-workflow-approval
+description: workflow example with approval step
+inputs:
+  parameters:
+    commit:
+      default: "%%session.commit%%"
+    repo:
+      default: "%%session.repo%%"
+    required_approvals:
+      default: "hong@applatix.com"
+    optional_approvals:
+      default: " "
+    number_of_optional_approvals_needed:
+      default: "0"
+    timeout_in_minutes:
+      default: "30"
+steps:
+- checkout:
+    template: axscm-checkout
+- build:
+    template: example-build
+    parameters:
+      code: "%%steps.checkout.code%%"
+- test1:
+    template: example-test
+    parameters:
+      code: "%%steps.checkout.code%%"
+      binary: "%%steps.build.binary%%"
+  test2:
+    template: example-test
+    parameters:
+      code: "%%steps.checkout.code%%"
+      binary: "%%steps.build.binary%%"
+  test3:
+    template: example-test
+    parameters:
+      code: "%%steps.checkout.code%%"
+      binary: "%%steps.build.binary%%"
+  test4:
+    template: example-test
+    parameters:
+      code: "%%steps.checkout.code%%"
+      binary: "%%steps.build.binary%%"
+  test5:
+    template: example-test
+    parameters:
+      code: "%%steps.checkout.code%%"
+      binary: "%%steps.build.binary%%"
+- approval:
+    template: axapproval
+- release:
+    template: example-release
+    parameters:
+      code: "%%steps.checkout.code%%"
+      binary: "%%steps.build.binary%%"
+

@@ -1,0 +1,28 @@
+---
+type: service_template
+subtype: container
+name: example-release
+description: release example
+container:
+  resources:
+    mem_mib: 256
+    cpu_cores: 0.1
+    disk_gb: 0
+  image: "golang:1.6"
+  docker_options: ""
+  command: "sh -c 'cd /src && ls -ltr && sleep 10'"
+inputs:
+  artifacts:
+  - from: "%%binary%%"
+    path: "/src/main"
+  - from: "%%code%%"
+    path: "/src"
+  parameters:
+    binary:
+    code:
+outputs:
+  artifacts:
+    binary:
+      path: "/src/main"
+    code:
+      path: "/src"
