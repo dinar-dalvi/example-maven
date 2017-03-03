@@ -7,7 +7,7 @@ container:
   resources:
     mem_mib: 128
     cpu_cores: 0.01
-  image: get.applatix.io/axapproval:v1
+  image: get.applatix.io/axapproval:v2
   command: sh -c 'axapproval --required_list "%%required_approvals%%"
     --optional_list "%%optional_approvals%%"
     --number_optional "%%number_of_optional_approvals_needed%%"
